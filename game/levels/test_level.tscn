@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://b46w6ysbd5cbw"]
+
+[ext_resource type="PackedScene" uid="uid://bldb21uaagsf3" path="res://game/characters/player_2d.tscn" id="1_46m3m"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_yeikn"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_giiqr"]
+noise = SubResource("FastNoiseLite_yeikn")
+seamless = true
+
+[node name="TestLevel" type="Node"]
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="Parallax2D"]
+texture = SubResource("NoiseTexture2D_giiqr")
+polygon = PackedVector2Array(-394, -78, 755, -80, 756, 566, -398, 570)
+
+[node name="Player2d" parent="." instance=ExtResource("1_46m3m")]
+position = Vector2(181, 244)
