@@ -27,3 +27,11 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	var input_direction = Vector2(Input.get_axis("left","right"),Input.get_axis("forward","back"))
 	player_controller.move_direction = input_direction
+	#print(get_viewport().get_camera_2d().global_position)
+	if (get_viewport().get_camera_2d()):
+		#RenderingServer.global_shader_parameter_set("WORLD_POS_2D", get_viewport().get_camera_2d().position)
+		RenderingServer.global_shader_parameter_set("world_pos_2D", get_viewport().get_camera_2d().get_screen_center_position())
+		#RenderingServer.global_shader_parameter_set("world_pos_2D", get_viewport().get_camera_2d().global_position)
+		#RenderingServer.global_shader_parameter_set("viewport_size", get_window().size)
+		#RenderingServer.global_shader_parameter_set("world_pos_2D", get_viewport().get_visible_rect().position)
+		RenderingServer.global_shader_parameter_set("viewport_size", get_viewport().get_visible_rect().size*get_viewport().get_camera_2d().zoom)

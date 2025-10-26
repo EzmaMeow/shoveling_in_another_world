@@ -48,16 +48,16 @@ func on_rotate(angle:float):
 	pass
 
 func on_jump(strength:float=1.0):
-	print_debug('jumped',strength)
+	#print_debug('jumped',strength)
 	pass
 	
 func on_crouch(strength:float=1.0):
-	print_debug('crouch',strength)
+	#print_debug('crouch',strength)
 	pass
 	
 func on_sprint(strength:float=1.0):
 	movement.speed_modifier = strength + 1
-	print_debug('sprint',strength)
+	#print_debug('sprint',strength)
 	pass
 	
 func _physics_process(_delta: float) -> void:

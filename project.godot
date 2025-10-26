@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 Game="*res://game/game.tscn"
 
+[display]
+
+window/size/viewport_width=822
+
 [input]
 
 forward={
@@ -77,3 +81,14 @@ sprint={
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+
+[shader_globals]
+
+viewport_size={
+"type": "vec2",
+"value": Vector2(0, 0)
+}
+world_pos_2D={
+"type": "vec2",
+"value": Vector2(0, 0)
+}
