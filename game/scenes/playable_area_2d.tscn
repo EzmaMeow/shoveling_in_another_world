@@ -1,0 +1,69 @@
+[gd_scene load_steps=7 format=3 uid="uid://coc0x2dpgdb3l"]
+
+[ext_resource type="Script" uid="uid://d2vatk4snc1jq" path="res://game/scenes/playable_area_2d.gd" id="1_388f2"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_f5m01"]
+normal = Vector2(0, -10)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_388f2"]
+normal = Vector2(-10, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_782mq"]
+normal = Vector2(10, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_dopoh"]
+normal = Vector2(0, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7q05g"]
+size = Vector2(1280, 1280)
+
+[node name="PlayableArea" type="StaticBody2D"]
+script = ExtResource("1_388f2")
+
+[node name="Background" type="TextureRect" parent="."]
+unique_name_in_owner = true
+z_index = -100
+offset_left = -640.0
+offset_top = -640.0
+offset_right = 640.0
+offset_bottom = 640.0
+
+[node name="SouthBorder" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, 640)
+shape = SubResource("WorldBoundaryShape2D_f5m01")
+one_way_collision_margin = 8.0
+debug_color = Color(4.042983e-06, 0.6815743, 0.7962333, 0.41960785)
+
+[node name="EastBorder" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(640, 0)
+shape = SubResource("WorldBoundaryShape2D_388f2")
+one_way_collision_margin = 8.0
+debug_color = Color(4.042983e-06, 0.6815743, 0.7962333, 0.41960785)
+
+[node name="WestBorder" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-640, 0)
+shape = SubResource("WorldBoundaryShape2D_782mq")
+one_way_collision_margin = 8.0
+debug_color = Color(4.042983e-06, 0.6815743, 0.7962333, 0.41960785)
+
+[node name="NorthBorder" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -640)
+shape = SubResource("WorldBoundaryShape2D_dopoh")
+one_way_collision_margin = 8.0
+debug_color = Color(4.042983e-06, 0.6815743, 0.7962333, 0.41960785)
+
+[node name="Bounds" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 0
+
+[node name="BoundsShape" type="CollisionShape2D" parent="Bounds"]
+unique_name_in_owner = true
+shape = SubResource("RectangleShape2D_7q05g")
+
+[connection signal="body_entered" from="Bounds" to="." method="_on_entered"]
+[connection signal="body_exited" from="Bounds" to="." method="_on_exited"]

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Controller2D" load_steps=2 format=3 uid="uid://d2ekwkehv68ur"]
+[gd_resource type="Resource" script_class="Controller_2D" load_steps=2 format=3 uid="uid://d2ekwkehv68ur"]
 
 [ext_resource type="Script" uid="uid://cmgpyj0fs7anq" path="res://game/controllers/controller_2d.gd" id="1_jticf"]
 

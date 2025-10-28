@@ -19,7 +19,7 @@ uniform sampler2D mask_texture;
 uniform bool use_mask_texture_alpha;
 uniform bool blend_mask;
 uniform float mask_strength = 1.0;
-uniform float mask_lightness = 0.1;
+uniform float mask_lightness;
 //uv
 uniform bool use_screen_space_uv;
 uniform bool map_uv_to_world;

@@ -13,7 +13,7 @@ config_version=5
 config/name="ShovelingInAnotherWorld"
 run/main_scene="uid://b46w6ysbd5cbw"
 config/features=PackedStringArray("4.5", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="res://game/icon.svg"
 
 [autoload]
 
@@ -84,10 +84,6 @@ renderer/rendering_method.mobile="gl_compatibility"
 
 [shader_globals]
 
-viewport_size={
-"type": "vec2",
-"value": Vector2(0, 0)
-}
 world_pos_2D={
 "type": "vec2",
 "value": Vector2(0, 0)
