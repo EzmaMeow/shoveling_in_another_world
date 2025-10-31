@@ -1,6 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://bldb21uaagsf3"]
+[gd_scene load_steps=11 format=3 uid="uid://bldb21uaagsf3"]
 
-[ext_resource type="Script" uid="uid://dbxdan6g6a1rv" path="res://game/characters/character_2d.gd" id="1_o4ag7"]
+[ext_resource type="Script" uid="uid://c3weef5g602kv" path="res://game/characters/player_character_2d.gd" id="1_o4ag7"]
 [ext_resource type="Texture2D" uid="uid://24endy2o42hr" path="res://game/icon.svg" id="2_ggryl"]
 [ext_resource type="Resource" uid="uid://d2ekwkehv68ur" path="res://game/controllers/player_controller_2d.tres" id="2_jrbxw"]
 [ext_resource type="Script" uid="uid://bn27xwff2gpls" path="res://game/characters/character_states/character_state.gd" id="3_fjdt4"]
@@ -17,12 +17,19 @@ metadata/_custom_type_script = "uid://3s6g67tyskvp"
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jrbxw"]
 size = Vector2(129, 129)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fjdt4"]
+size = Vector2(128, 128)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m1psc"]
+radius = 192.0
+
 [node name="Player2d" type="CharacterBody2D" node_paths=PackedStringArray("camera")]
 script = ExtResource("1_o4ag7")
 controller = ExtResource("2_jrbxw")
 state = SubResource("Resource_jhuw4")
 movement = SubResource("Resource_52qjt")
 camera = NodePath("Camera2D")
+face_movement_direction = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 0.5)
@@ -32,3 +39,18 @@ shape = SubResource("RectangleShape2D_jrbxw")
 texture = ExtResource("2_ggryl")
 
 [node name="Camera2D" type="Camera2D" parent="." groups=["Game2D"]]
+
+[node name="DirectArea" type="Area2D" parent="."]
+unique_name_in_owner = true
+
+[node name="FrontShape2D" type="CollisionShape2D" parent="DirectArea"]
+unique_name_in_owner = true
+position = Vector2(0, -126)
+shape = SubResource("RectangleShape2D_fjdt4")
+
+[node name="SweepShape2D" type="CollisionShape2D" parent="DirectArea"]
+unique_name_in_owner = true
+shape = SubResource("CircleShape2D_m1psc")
+disabled = true
+
+[connection signal="body_entered" from="DirectArea" to="." method="_on_direct_area_body_entered"]

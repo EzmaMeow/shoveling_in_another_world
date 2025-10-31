@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b46w6ysbd5cbw"]
+[gd_scene load_steps=16 format=3 uid="uid://b46w6ysbd5cbw"]
 
 [ext_resource type="PackedScene" uid="uid://bldb21uaagsf3" path="res://game/characters/player_2d.tscn" id="1_46m3m"]
 [ext_resource type="Shader" uid="uid://dufl35gdxc2hg" path="res://game/shaders/simple_mask_texture.gdshader" id="1_giiqr"]
@@ -55,13 +55,36 @@ shader_parameter/uv_offset = Vector2(0, 0)
 shader_parameter/uv_angle = 0.0
 shader_parameter/uv_rotation_offset = Vector2(0.5, 0.5)
 
+[sub_resource type="GDScript" id="GDScript_3m0nd"]
+script/source = "extends CharacterBody2D
+#this is a test for something unrelated. 
+#but could be salvage when designing ai follow target
+#though i tend to hand ai diffrently. 
+@export var player : Node2D
+
+var speed : float = 160
+
+func _physics_process(delta):
+	var min_distance : float = 160.0
+	var max_distance : float = 220.0
+	var distance : float = global_position.distance_to(player.global_position)
+	var current_speed : float = lerpf(0.0, speed, (distance-min_distance)/max_distance)
+	if distance > min_distance || distance < min_distance :
+		velocity = (player.global_position - global_position).normalized() * current_speed
+	else:
+		velocity = Vector2.ZERO
+	move_and_slide()
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q1hu1"]
+size = Vector2(126, 124)
+
 [node name="TestLevel" type="Node"]
 
 [node name="PlayableArea" parent="." instance=ExtResource("4_80l8l")]
 background_texture = SubResource("GradientTexture1D_wxaf8")
 background_material = ExtResource("2_3m0nd")
-bounds_collsion_layer = 0
-bounds_collsion_mask = 0
+borders_collsion_mask = 1
 
 [node name="endlessbackgroundtests" type="CanvasLayer" parent="."]
 layer = -1
@@ -89,3 +112,15 @@ position = Vector2(148, 102)
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(925, 577)
 texture = ExtResource("3_giiqr")
+
+[node name="FollowerTest" type="CharacterBody2D" parent="." node_paths=PackedStringArray("player")]
+scale = Vector2(0.1, 0.1)
+script = SubResource("GDScript_3m0nd")
+player = NodePath("../Player2d")
+
+[node name="Sprite2D" type="Sprite2D" parent="FollowerTest"]
+texture = ExtResource("3_giiqr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FollowerTest"]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_q1hu1")
