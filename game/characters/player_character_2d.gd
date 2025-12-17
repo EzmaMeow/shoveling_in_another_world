@@ -44,3 +44,30 @@ func _process(delta: float) -> void:
 	#note: the axis seem to need to be flip and or something. rotating 2d is risky, 
 	#but since this is an area, it may always be centered around the point it rotates
 	%DirectArea.look_at(global_position+Vector2(-controller.look_direction.y,controller.look_direction.x))
+	if (velocity != Vector2.ZERO):
+		#could use the controller look_direction or something, but most times the 
+		#render facing is in the direction of travel. Can change it to other facing
+		#if not moving.
+		if (velocity.x > 0.0):
+			if(%AnimatedSprite2D.animation != "walk_right"):
+				%AnimatedSprite2D.frame = 1
+				%AnimatedSprite2D.play('walk_right')
+		elif (velocity.x < 0.0):
+			if(%AnimatedSprite2D.animation != "walk_left"):
+				%AnimatedSprite2D.frame = 1
+				%AnimatedSprite2D.play('walk_left')
+		elif (velocity.y > 0.0):
+			if(%AnimatedSprite2D.animation != "walk_front"):
+				%AnimatedSprite2D.frame = 1
+				%AnimatedSprite2D.play('walk_front')
+		elif (velocity.y < 0.0):
+			if(%AnimatedSprite2D.animation != "walk_back"):
+				%AnimatedSprite2D.frame = 1
+				%AnimatedSprite2D.play('walk_back')
+		if (!%AnimatedSprite2D.is_playing()):
+			%AnimatedSprite2D.frame = 1
+			%AnimatedSprite2D.play()
+		
+	else:
+		%AnimatedSprite2D.frame = 0
+		%AnimatedSprite2D.pause()
